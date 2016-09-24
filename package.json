@@ -4,23 +4,19 @@
   "description": "Free opensource tooltip class.",
   "keywords": [ "tooltip" ],
   "homepage": "http://www.opentip.org",
-  "main": [
-    "./lib/opentip.js",
-    "./lib/adapter.ender.js"
-  ],
   "maintainers": [
     {
       "name": "Matias Meno",
       "email": "m@tias.me",
       "web": "http://www.matiasmeno.com"
-    } 
+    }
   ],
   "contributors": [
     {
       "name": "Matias Meno",
       "email": "m@tias.me",
       "web": "http://www.matiasmeno.com"
-    } 
+    }
   ],
   "bugs": {
     "mail": "m@tias.me"
@@ -28,14 +24,14 @@
   "licenses": [
     {
       "type": "MIT",
-      "url": "http://www.opensource.org/licenses/MIT" 
-    } 
+      "url": "http://www.opensource.org/licenses/MIT"
+    }
   ],
   "repositories": [
     {
       "type": "git",
-      "url": "https://github.com/enyo/opentip.git" 
-    } 
+      "url": "https://github.com/enyo/opentip.git"
+    }
   ],
   "scripts": {
     "test": "node_modules/mocha-phantomjs/bin/mocha-phantomjs test/test.html"
