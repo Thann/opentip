@@ -5,14 +5,12 @@
 
   describe("Opentip", function() {
     var adapter;
-
     adapter = null;
     beforeEach(function() {
       return adapter = Opentip.adapter;
     });
     afterEach(function() {
       var elements;
-
       elements = $(".opentip-container");
       return elements.remove();
     });
@@ -25,7 +23,6 @@
       });
       it("arguments should be optional", function() {
         var element, opentip;
-
         element = adapter.create("<div></div>");
         opentip = new Opentip(element, "content");
         expect(opentip.content).to.equal("content");
@@ -47,7 +44,6 @@
       });
       it("should always use the next tip id", function() {
         var element, opentip, opentip2, opentip3;
-
         element = document.createElement("div");
         Opentip.lastId = 0;
         opentip = new Opentip(element, "Test");
@@ -59,7 +55,6 @@
       });
       it("should use the href attribute if AJAX and an A element", function() {
         var element, opentip;
-
         element = $("<a href=\"http://testlink\">link</a>")[0];
         opentip = new Opentip(element, {
           ajax: true
@@ -68,7 +63,6 @@
       });
       it("should disable AJAX if neither URL or a link HREF is provided", function() {
         var element, opentip;
-
         element = $("<div>text</div>")[0];
         opentip = new Opentip(element, {
           ajax: true
@@ -77,7 +71,6 @@
       });
       it("should disable a link if the event is onClick", function() {
         var element, opentip;
-
         sinon.stub(adapter, "observe");
         element = $("<a href=\"http://testlink\">link</a>")[0];
         sinon.stub(Opentip.prototype, "_setupObservers");
@@ -91,7 +84,6 @@
       });
       it("should take all options from selected style", function() {
         var element, opentip;
-
         element = document.createElement("div");
         opentip = new Opentip(element, {
           style: "glass",
@@ -103,7 +95,6 @@
       });
       it("the property 'style' should be handled the same as 'extends'", function() {
         var element, opentip;
-
         element = document.createElement("div");
         opentip = new Opentip(element, {
           "extends": "glass",
@@ -115,7 +106,6 @@
       });
       it("chaining incorrect styles should throw an exception", function() {
         var element;
-
         element = document.createElement("div");
         return expect(function() {
           return new Opentip(element, {
@@ -125,7 +115,6 @@
       });
       it("chaining styles should work", function() {
         var element, opentip;
-
         element = document.createElement("div");
         Opentip.styles.test1 = {
           stemLength: 40
@@ -150,7 +139,6 @@
       });
       it("should set the options to fixed if a target is provided", function() {
         var element, opentip;
-
         element = document.createElement("div");
         opentip = new Opentip(element, {
           target: true,
@@ -160,7 +148,6 @@
       });
       it("should use provided stem", function() {
         var element, opentip;
-
         element = document.createElement("div");
         opentip = new Opentip(element, {
           stem: "bottom",
@@ -170,7 +157,6 @@
       });
       it("should take the tipJoint as stem if stem is just true", function() {
         var element, opentip;
-
         element = document.createElement("div");
         opentip = new Opentip(element, {
           stem: true,
@@ -180,7 +166,6 @@
       });
       it("should use provided target", function() {
         var element, element2, opentip;
-
         element = adapter.create("<div></div>");
         element2 = adapter.create("<div></div>");
         opentip = new Opentip(element, {
@@ -190,7 +175,6 @@
       });
       it("should take the triggerElement as target if target is just true", function() {
         var element, opentip;
-
         element = adapter.create("<div></div>");
         opentip = new Opentip(element, {
           target: true
@@ -199,7 +183,6 @@
       });
       it("currentStemPosition should be set to inital stemPosition", function() {
         var element, opentip;
-
         element = adapter.create("<div></div>");
         opentip = new Opentip(element, {
           stem: "topLeft"
@@ -208,7 +191,6 @@
       });
       it("delay should be automatically set if none provided", function() {
         var element, opentip;
-
         element = document.createElement("div");
         opentip = new Opentip(element, {
           delay: null,
@@ -223,7 +205,6 @@
       });
       it("the targetJoint should be the inverse of the tipJoint if none provided", function() {
         var element, opentip;
-
         element = document.createElement("div");
         opentip = new Opentip(element, {
           tipJoint: "left"
@@ -240,7 +221,6 @@
       });
       it("should setup all trigger elements", function() {
         var element, opentip;
-
         element = adapter.create("<div></div>");
         opentip = new Opentip(element, {
           showOn: "click"
@@ -258,7 +238,6 @@
       });
       it("should copy options.hideTrigger onto options.hideTriggers", function() {
         var element, opentip;
-
         element = adapter.create("<div></div>");
         opentip = new Opentip(element, {
           hideTrigger: "closeButton",
@@ -268,7 +247,6 @@
       });
       it("should NOT copy options.hideTrigger onto options.hideTriggers when hideTriggers are set", function() {
         var element, opentip;
-
         element = adapter.create("<div></div>");
         opentip = new Opentip(element, {
           hideTrigger: "closeButton",
@@ -278,7 +256,6 @@
       });
       it("should attach itself to the elements `data-opentips` property", function() {
         var element, opentip, opentip2, opentip3;
-
         element = $("<div></div>")[0];
         expect(adapter.data(element, "opentips")).to.not.be.ok();
         opentip = new Opentip(element);
@@ -289,7 +266,6 @@
       });
       it("should add itself to the Opentip.tips list", function() {
         var element, opentip1, opentip2;
-
         element = $("<div></div>")[0];
         Opentip.tips = [];
         opentip1 = new Opentip(element);
@@ -298,9 +274,8 @@
         expect(Opentip.tips[0]).to.equal(opentip1);
         return expect(Opentip.tips[1]).to.equal(opentip2);
       });
-      return it("should rename ajaxCache to cache for backwards compatibility", function() {
-        var element, opentip1, opentip2, _ref;
-
+      it("should rename ajaxCache to cache for backwards compatibility", function() {
+        var element, opentip1, opentip2, ref;
         element = $("<div></div>")[0];
         opentip1 = new Opentip(element, {
           ajaxCache: false
@@ -308,15 +283,29 @@
         opentip2 = new Opentip(element, {
           ajaxCache: true
         });
-        expect((opentip1.options.ajaxCache === (_ref = opentip2.options.ajaxCache) && _ref === void 0)).to.be.ok();
+        expect((opentip1.options.ajaxCache === (ref = opentip2.options.ajaxCache) && ref === void 0)).to.be.ok();
         expect(opentip1.options.cache).to.not.be.ok();
         return expect(opentip2.options.cache).to.be.ok();
+      });
+      it("should throw an exception if there is more than one element", function() {
+        var elements;
+        elements = $("li");
+        return expect(function() {
+          return new Opentip(elements);
+        }).to.throwException("You can't call Opentip on multiple elements.");
+      });
+      return it("should throw an exception if no elements were given", function() {
+        var element, selector;
+        selector = "#this-element-definitely-doesnt-exist";
+        element = $(selector);
+        return expect(function() {
+          return new Opentip(selector);
+        }).to.throwException(selector + " is not a valid element.");
       });
     });
     describe("init()", function() {
       return describe("showOn == creation", function() {
         var element;
-
         element = document.createElement("div");
         beforeEach(function() {
           return sinon.stub(Opentip.prototype, "prepareToShow");
@@ -326,7 +315,6 @@
         });
         return it("should immediately call prepareToShow()", function() {
           var opentip;
-
           opentip = new Opentip(element, {
             showOn: "creation"
           });
@@ -337,7 +325,6 @@
     describe("setContent()", function() {
       it("should update the content if tooltip currently visible", function() {
         var element, opentip;
-
         element = document.createElement("div");
         opentip = new Opentip(element, {
           showOn: "click"
@@ -354,7 +341,6 @@
       });
       return it("should not set the content directly if function", function() {
         var element, opentip;
-
         element = document.createElement("div");
         opentip = new Opentip(element, {
           showOn: "click"
@@ -369,7 +355,6 @@
     describe("_updateElementContent()", function() {
       it("should escape the content if @options.escapeContent", function() {
         var element, opentip;
-
         element = document.createElement("div");
         opentip = new Opentip(element, "<div><span></span></div>", {
           escapeContent: true
@@ -382,7 +367,6 @@
       });
       it("should not escape the content if not @options.escapeContent", function() {
         var element, opentip;
-
         element = document.createElement("div");
         opentip = new Opentip(element, "<div><span></span></div>", {
           escapeContent: false
@@ -395,7 +379,6 @@
       });
       it("should storeAndLock dimensions and reposition the element", function() {
         var element, opentip;
-
         element = document.createElement("div");
         opentip = new Opentip(element, {
           showOn: "click"
@@ -409,7 +392,6 @@
       });
       it("should execute the content function", function() {
         var element, opentip;
-
         element = document.createElement("div");
         opentip = new Opentip(element, {
           showOn: "click"
@@ -426,7 +408,6 @@
       });
       it("should only execute the content function once if cache:true", function() {
         var counter, element, opentip;
-
         element = document.createElement("div");
         opentip = new Opentip(element, {
           showOn: "click",
@@ -448,7 +429,6 @@
       });
       it("should execute the content function multiple times if cache:false", function() {
         var counter, element, opentip;
-
         element = document.createElement("div");
         opentip = new Opentip(element, {
           showOn: "click",
@@ -470,7 +450,6 @@
       });
       return it("should only update the HTML elements if the content has been changed", function() {
         var element, opentip;
-
         element = document.createElement("div");
         opentip = new Opentip(element, {
           showOn: "click"
@@ -493,7 +472,6 @@
     });
     describe("_buildContainer()", function() {
       var element, opentip;
-
       element = document.createElement("div");
       opentip = null;
       beforeEach(function() {
@@ -509,7 +487,6 @@
       });
       return it("should set the classes", function() {
         var enderElement;
-
         enderElement = $(adapter.unwrap(opentip.container));
         expect(enderElement.hasClass("opentip-container")).to.be.ok();
         expect(enderElement.hasClass("ot-hidden")).to.be.ok();
@@ -520,7 +497,6 @@
     });
     describe("_buildElements()", function() {
       var element, opentip;
-
       element = opentip = null;
       beforeEach(function() {
         element = document.createElement("div");
@@ -534,7 +510,6 @@
       });
       it("should add a h1 if title is provided", function() {
         var enderElement, headerElement;
-
         enderElement = $(adapter.unwrap(opentip.container));
         headerElement = enderElement.find("> .opentip > .ot-header > h1");
         expect(headerElement.length).to.be.ok();
@@ -542,7 +517,6 @@
       });
       it("should add a loading indicator if ajax", function() {
         var enderElement, loadingElement;
-
         enderElement = $(adapter.unwrap(opentip.container));
         loadingElement = enderElement.find("> .opentip > .ot-loading-indicator > span");
         expect(loadingElement.length).to.be.ok();
@@ -550,7 +524,6 @@
       });
       return it("should add a close button if hideTrigger = close", function() {
         var closeButton, enderElement;
-
         enderElement = $(adapter.unwrap(opentip.container));
         closeButton = enderElement.find("> .opentip > .ot-header > a.ot-close > span");
         expect(closeButton.length).to.be.ok();
@@ -560,7 +533,6 @@
     describe("addAdapter()", function() {
       it("should set the current adapter, and add the adapter to the list", function() {
         var testAdapter;
-
         expect(Opentip.adapters.testa).to.not.be.ok();
         testAdapter = {
           name: "testa"
@@ -579,7 +551,6 @@
     return describe("_activateFirstInput()", function() {
       return it("should do what it says", function() {
         var element, input, opentip;
-
         element = document.createElement("div");
         opentip = new Opentip(element, "<input /><textarea>", {
           escapeContent: false
@@ -601,23 +572,21 @@
 
 (function() {
   var $,
-    __hasProp = {}.hasOwnProperty;
+    hasProp = {}.hasOwnProperty;
 
   $ = jQuery;
 
   describe("Opentip - Startup", function() {
     var adapter, opentip;
-
     adapter = Opentip.adapter;
     opentip = null;
     afterEach(function() {
-      var prop, _ref;
-
+      var prop, ref;
       for (prop in opentip) {
-        if (!__hasProp.call(opentip, prop)) continue;
-        if ((_ref = opentip[prop]) != null) {
-          if (typeof _ref.restore === "function") {
-            _ref.restore();
+        if (!hasProp.call(opentip, prop)) continue;
+        if ((ref = opentip[prop]) != null) {
+          if (typeof ref.restore === "function") {
+            ref.restore();
           }
         }
       }
@@ -631,7 +600,6 @@
     });
     it("should find all elements with data-ot()", function() {
       var trigger;
-
       trigger = $("<div data-ot=\"Content text\"></div>")[0];
       $(document.body).append(trigger);
       Opentip.findElements();
@@ -641,7 +609,6 @@
     });
     it("should take configuration from data- attributes", function() {
       var trigger;
-
       trigger = $("<div data-ot=\"Content text\" data-ot-show-on=\"click\" data-ot-hide-trigger=\"closeButton\"></div>")[0];
       $(document.body).append(trigger);
       Opentip.findElements();
@@ -652,7 +619,6 @@
     });
     return it("should properly parse boolean data- attributes", function() {
       var trigger;
-
       trigger = $("<div data-ot=\"Content text\" data-ot-shadow=\"yes\" data-ot-auto-offset=\"no\" data-ot-contain-in-viewport=\"false\"></div>")[0];
       $(document.body).append(trigger);
       Opentip.findElements();
@@ -667,13 +633,12 @@
 
 (function() {
   var $,
-    __hasProp = {}.hasOwnProperty;
+    hasProp = {}.hasOwnProperty;
 
   $ = jQuery;
 
   describe("Opentip - Appearing", function() {
     var adapter, opentip, triggerElementExists;
-
     adapter = Opentip.adapter;
     opentip = null;
     triggerElementExists = true;
@@ -681,14 +646,13 @@
       return triggerElementExists = true;
     });
     afterEach(function() {
-      var prop, _ref;
-
+      var prop, ref;
       if (opentip) {
         for (prop in opentip) {
-          if (!__hasProp.call(opentip, prop)) continue;
-          if ((_ref = opentip[prop]) != null) {
-            if (typeof _ref.restore === "function") {
-              _ref.restore();
+          if (!hasProp.call(opentip, prop)) continue;
+          if ((ref = opentip[prop]) != null) {
+            if (typeof ref.restore === "function") {
+              ref.restore();
             }
           }
         }
@@ -833,7 +797,6 @@
     describe("grouped Opentips", function() {
       it("should hide all other opentips", function() {
         var opentip2, opentip3;
-
         Opentip.tips = [];
         opentip = new Opentip(adapter.create("<div></div>"), "Test", {
           delay: 0,
@@ -874,7 +837,6 @@
       });
       return it("should abort showing other opentips", function() {
         var opentip2, opentip3;
-
         Opentip.tips = [];
         opentip = new Opentip(adapter.create("<div></div>"), "Test", {
           delay: 1000,
@@ -918,8 +880,7 @@
       });
     });
     describe("events", function() {
-      var element, event, testEvent, _i, _len, _ref, _results;
-
+      var element, event, i, len, ref, results, testEvent;
       element = "";
       beforeEach(function() {
         return element = document.createElement("div");
@@ -930,22 +891,21 @@
         expect(opentip.preparingToShow).to.be.ok();
         expect(opentip.visible).to.not.be.ok();
         return setTimeout(function() {
-          var e;
-
+          var e, error;
           try {
             expect(opentip.visible).to.be.ok();
             return done();
-          } catch (_error) {
-            e = _error;
+          } catch (error) {
+            e = error;
             return done(e);
           }
         }, 2);
       };
-      _ref = ["click", "mouseover", "focus"];
-      _results = [];
-      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-        event = _ref[_i];
-        _results.push(it("should show on " + event, function(done) {
+      ref = ["click", "mouseover", "focus"];
+      results = [];
+      for (i = 0, len = ref.length; i < len; i++) {
+        event = ref[i];
+        results.push(it("should show on " + event, function(done) {
           opentip = new Opentip(element, "test", {
             delay: 0,
             showOn: event
@@ -956,7 +916,7 @@
           return testEvent(opentip, event, done);
         }));
       }
-      return _results;
+      return results;
     });
     describe("hide", function() {
       return it("should remove HTML elements if removeElementsOnHide: true", function(done) {
@@ -983,7 +943,6 @@
     });
     return describe("visible", function() {
       var $element, element, span;
-
       $element = null;
       element = null;
       span = null;
@@ -994,7 +953,6 @@
       });
       return it("should activate all hide buttons", function(done) {
         var closeClass;
-
         closeClass = Opentip.prototype["class"].close;
         opentip = new Opentip(element, "<a class=\"" + closeClass + "\">close</a>", {
           escape: false,
@@ -1009,24 +967,24 @@
         sinon.stub(opentip, "prepareToHide");
         opentip.prepareToShow();
         setTimeout(function() {
-          var closeButtons, e;
-
+          var closeButtons, e, error;
           try {
             closeButtons = $(opentip.container).find("." + closeClass);
             expect(closeButtons.length).to.be(2);
             expect(opentip.prepareToHide.callCount).to.be(0);
-          } catch (_error) {
-            e = _error;
+          } catch (error) {
+            e = error;
             done(e);
             return;
           }
           Test.triggerEvent(closeButtons[0], "click");
           return setTimeout(function() {
+            var error1;
             try {
               expect(opentip.prepareToHide.callCount).to.be(1);
               return done();
-            } catch (_error) {
-              e = _error;
+            } catch (error1) {
+              e = error1;
               return done(e);
             }
           }, 4);
@@ -1045,7 +1003,6 @@
 
   describe("Opentip - Positioning", function() {
     var adapter, opentip, triggerElementExists;
-
     adapter = Opentip.adapter;
     opentip = null;
     triggerElementExists = true;
@@ -1053,12 +1010,11 @@
       return triggerElementExists = true;
     });
     afterEach(function() {
-      var prop, _ref;
-
+      var prop, ref;
       for (prop in opentip) {
-        if ((_ref = opentip[prop]) != null) {
-          if (typeof _ref.restore === "function") {
-            _ref.restore();
+        if ((ref = opentip[prop]) != null) {
+          if (typeof ref.restore === "function") {
+            ref.restore();
           }
         }
       }
@@ -1066,7 +1022,6 @@
     });
     describe("fixed", function() {
       var element;
-
       element = adapter.create("<div style=\"display: block; position: absolute; top: 500px; left: 500px; width: 50px; height: 50px;\"></div>");
       beforeEach(function() {
         return adapter.append(document.body, element);
@@ -1077,7 +1032,6 @@
       return describe("without autoOffset", function() {
         it("should correctly position opentip without border and stem", function() {
           var elementOffset;
-
           opentip = new Opentip(element, "Test", {
             delay: 0,
             target: true,
@@ -1100,7 +1054,6 @@
         });
         it("should correctly position opentip with", function() {
           var elementOffset;
-
           opentip = new Opentip(element, "Test", {
             delay: 0,
             target: true,
@@ -1119,7 +1072,6 @@
         });
         it("should correctly position opentip with stem on the left", function() {
           var elementOffset;
-
           opentip = new Opentip(element, "Test", {
             delay: 0,
             target: true,
@@ -1140,7 +1092,6 @@
         });
         it("should correctly position opentip on the bottom right", function() {
           var elementDimensions, elementOffset;
-
           opentip = new Opentip(element, "Test", {
             delay: 0,
             target: true,
@@ -1169,7 +1120,6 @@
         });
         return it("should correctly position opentip on the bottom right with stem", function() {
           var elementDimensions, elementOffset;
-
           opentip = new Opentip(element, "Test", {
             delay: 0,
             target: true,
@@ -1213,23 +1163,21 @@
 
 (function() {
   var $,
-    __hasProp = {}.hasOwnProperty;
+    hasProp = {}.hasOwnProperty;
 
   $ = jQuery;
 
   describe("Opentip - Drawing", function() {
     var adapter, opentip;
-
     adapter = Opentip.adapter;
     opentip = null;
     afterEach(function() {
-      var prop, _ref;
-
+      var prop, ref;
       for (prop in opentip) {
-        if (!__hasProp.call(opentip, prop)) continue;
-        if ((_ref = opentip[prop]) != null) {
-          if (typeof _ref.restore === "function") {
-            _ref.restore();
+        if (!hasProp.call(opentip, prop)) continue;
+        if ((ref = opentip[prop]) != null) {
+          if (typeof ref.restore === "function") {
+            ref.restore();
           }
         }
       }
@@ -1273,7 +1221,6 @@
       });
       it("should add the stem classes", function() {
         var unwrappedContainer;
-
         sinon.stub(opentip, "debug");
         opentip._setup();
         opentip.backgroundCanvas = document.createElement("canvas");
@@ -1296,7 +1243,6 @@
     });
     describe("with close button", function() {
       var createAndShowTooltip, element, options;
-
       options = {};
       element = null;
       beforeEach(function() {
@@ -1338,7 +1284,6 @@
       };
       it("should position the close link when no border", function() {
         var el;
-
         options.borderWidth = 0;
         options.closeButtonOffset = [0, 10];
         createAndShowTooltip();
@@ -1350,7 +1295,6 @@
       });
       it("should position the close link when border and different overscan", function() {
         var el;
-
         options.borderWidth = 1;
         options.closeButtonLinkOverscan = 10;
         createAndShowTooltip();
@@ -1362,7 +1306,6 @@
       });
       it("should position the close link with different offsets and overscans", function() {
         var el;
-
         options.closeButtonOffset = [10, 5];
         options.closeButtonCrossSize = 10;
         options.closeButtonLinkOverscan = 0;
@@ -1375,7 +1318,6 @@
       });
       return it("should correctly position the close link on the left when stem on top right", function() {
         var el;
-
         options.closeButtonOffset = [20, 17];
         options.closeButtonCrossSize = 12;
         options.closeButtonLinkOverscan = 5;
@@ -1391,16 +1333,14 @@
     });
     describe("_getPathStemMeasures()", function() {
       it("should just return the same measures if borderWidth is 0", function() {
-        var stemBase, stemLength, _ref;
-
-        _ref = opentip._getPathStemMeasures(6, 10, 0), stemBase = _ref.stemBase, stemLength = _ref.stemLength;
+        var ref, stemBase, stemLength;
+        ref = opentip._getPathStemMeasures(6, 10, 0), stemBase = ref.stemBase, stemLength = ref.stemLength;
         expect(stemBase).to.be(6);
         return expect(stemLength).to.be(10);
       });
       it("should properly calculate the pathStem information if borderWidth > 0", function() {
-        var stemBase, stemLength, _ref;
-
-        _ref = opentip._getPathStemMeasures(6, 10, 3), stemBase = _ref.stemBase, stemLength = _ref.stemLength;
+        var ref, stemBase, stemLength;
+        ref = opentip._getPathStemMeasures(6, 10, 3), stemBase = ref.stemBase, stemLength = ref.stemLength;
         expect(stemBase).to.be(3.767908047326835);
         return expect(stemLength).to.be(6.2798467455447256);
       });
@@ -1412,7 +1352,6 @@
     });
     return describe("_getColor()", function() {
       var cavans, ctx, dimensions, gradient;
-
       dimensions = {
         width: 200,
         height: 100
@@ -1434,7 +1373,6 @@
       });
       return it("should create and return gradient", function() {
         var color;
-
         color = Opentip.prototype._getColor(ctx, dimensions, [[0, "black"], [1, "white"]]);
         expect(gradient.addColorStop.callCount).to.be(2);
         return expect(color).to.be(gradient);
@@ -1446,13 +1384,12 @@
 
 (function() {
   var $,
-    __hasProp = {}.hasOwnProperty;
+    hasProp = {}.hasOwnProperty;
 
   $ = jQuery;
 
   describe("Opentip - AJAX", function() {
     var adapter, opentip, triggerElementExists;
-
     adapter = Opentip.adapter;
     opentip = null;
     triggerElementExists = true;
@@ -1460,13 +1397,12 @@
       return triggerElementExists = true;
     });
     afterEach(function() {
-      var prop, _ref;
-
+      var prop, ref;
       for (prop in opentip) {
-        if (!__hasProp.call(opentip, prop)) continue;
-        if ((_ref = opentip[prop]) != null) {
-          if (typeof _ref.restore === "function") {
-            _ref.restore();
+        if (!hasProp.call(opentip, prop)) continue;
+        if ((ref = opentip[prop]) != null) {
+          if (typeof ref.restore === "function") {
+            ref.restore();
           }
         }
       }
@@ -1565,11 +1501,9 @@
 (function() {
   describe("utils", function() {
     var adapter;
-
     adapter = Opentip.adapter;
     describe("debug()", function() {
       var consoleDebug;
-
       consoleDebug = console.debug;
       beforeEach(function() {
         return sinon.stub(console, "debug");
@@ -1587,7 +1521,6 @@
       });
       return it("should include the opentip id", function() {
         var opentip;
-
         Opentip.debug = true;
         opentip = new Opentip(document.createElement("span"));
         opentip.debug("test");
@@ -1607,7 +1540,6 @@
     describe("_positionsEqual()", function() {
       return it("should properly compare positions", function() {
         var eq;
-
         eq = Opentip.prototype._positionsEqual;
         expect(eq({
           left: 0,
@@ -1640,7 +1572,6 @@
     describe("_dimensionsEqual()", function() {
       return it("should properly compare dimensions", function() {
         var eq;
-
         eq = Opentip.prototype._dimensionsEqual;
         expect(eq({
           width: 0,
@@ -1672,11 +1603,9 @@
     });
     describe("setCss3Style()", function() {
       var opentip;
-
       opentip = new Opentip(adapter.create("<div></div>"), "Test");
       return it("should set the style for all vendors", function() {
-        var element, opacity, prop, transitionDuration, vendor, _i, _len, _ref;
-
+        var element, i, len, opacity, prop, ref, transitionDuration, vendor;
         element = document.createElement("div");
         opentip.setCss3Style(element, {
           opacity: "0.5",
@@ -1684,14 +1613,14 @@
         });
         transitionDuration = false;
         opacity = false;
-        _ref = ["", "Khtml", "Ms", "O", "Moz", "Webkit"];
-        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-          vendor = _ref[_i];
-          prop = vendor ? "" + vendor + "TransitionDuration" : "transitionDuration";
+        ref = ["", "Khtml", "Ms", "O", "Moz", "Webkit"];
+        for (i = 0, len = ref.length; i < len; i++) {
+          vendor = ref[i];
+          prop = vendor ? vendor + "TransitionDuration" : "transitionDuration";
           if (element.style[prop] === "1s") {
             transitionDuration = true;
           }
-          prop = vendor ? "" + vendor + "Opacity" : "opacity";
+          prop = vendor ? vendor + "Opacity" : "opacity";
           if (element.style[prop] === "0.5") {
             opacity = true;
           }
@@ -1712,17 +1641,16 @@
 
 (function() {
   var extend,
-    __slice = [].slice,
-    __hasProp = {}.hasOwnProperty;
+    slice = [].slice,
+    hasProp = {}.hasOwnProperty;
 
   extend = function() {
-    var key, source, sources, target, val, _i, _len;
-
-    target = arguments[0], sources = 2 <= arguments.length ? __slice.call(arguments, 1) : [];
-    for (_i = 0, _len = sources.length; _i < _len; _i++) {
-      source = sources[_i];
+    var i, key, len, source, sources, target, val;
+    target = arguments[0], sources = 2 <= arguments.length ? slice.call(arguments, 1) : [];
+    for (i = 0, len = sources.length; i < len; i++) {
+      source = sources[i];
       for (key in source) {
-        if (!__hasProp.call(source, key)) continue;
+        if (!hasProp.call(source, key)) continue;
         val = source[key];
         target[key] = val;
       }
@@ -1740,7 +1668,6 @@
       });
       return it("should accept Pointer objects", function() {
         var p, p2;
-
         p = new Opentip.Joint("top left");
         expect(p.toString()).to.be("top left");
         p2 = new Opentip.Joint(p);
@@ -1751,7 +1678,6 @@
     describe("set()", function() {
       it("should properly set the positions", function() {
         var p;
-
         p = new Opentip.Joint;
         p.set("top-left");
         expect(p.toString()).to.eql("top left");
@@ -1762,7 +1688,6 @@
       });
       it("should handle any order of positions", function() {
         var p;
-
         p = new Opentip.Joint;
         p.set("right bottom");
         expect(p.toString()).to.eql("bottom right");
@@ -1773,7 +1698,6 @@
       });
       return it("should add .bottom, .left etc... properties on the position", function() {
         var positions, testCount, testPointers;
-
         positions = {
           top: false,
           bottom: false,
@@ -1784,20 +1708,19 @@
         };
         testCount = sinon.stub();
         testPointers = function(position, thisPositions) {
-          var positionName, shouldBeTrue, _results;
-
+          var positionName, results, shouldBeTrue;
           thisPositions = extend({}, positions, thisPositions);
-          _results = [];
+          results = [];
           for (positionName in thisPositions) {
             shouldBeTrue = thisPositions[positionName];
             testCount();
             if (shouldBeTrue) {
-              _results.push(expect(position[positionName]).to.be.ok());
+              results.push(expect(position[positionName]).to.be.ok());
             } else {
-              _results.push(expect(position[positionName]).to.not.be.ok());
+              results.push(expect(position[positionName]).to.not.be.ok());
             }
           }
-          return _results;
+          return results;
         };
         testPointers(new Opentip.Joint("top"), {
           center: true,
@@ -1837,7 +1760,6 @@
     describe("setHorizontal()", function() {
       return it("should set the horizontal position", function() {
         var p;
-
         p = new Opentip.Joint("top left");
         expect(p.left).to.be.ok();
         expect(p.top).to.be.ok();
@@ -1850,7 +1772,6 @@
     describe("setVertical()", function() {
       return it("should set the vertical position", function() {
         var p;
-
         p = new Opentip.Joint("top left");
         expect(p.top).to.be.ok();
         expect(p.left).to.be.ok();
@@ -1863,7 +1784,6 @@
     return describe("flip()", function() {
       it("should return itself for chaining", function() {
         var p, p2;
-
         p = new Opentip.Joint("top");
         p2 = p.flip();
         return expect(p).to.be(p2);
@@ -1881,7 +1801,7 @@
 
 (function() {
   var $, adapters,
-    __hasProp = {}.hasOwnProperty;
+    hasProp = {}.hasOwnProperty;
 
   $ = jQuery;
 
@@ -1892,14 +1812,12 @@
   }
 
   describe("Generic adapter", function() {
-    var adapterName, _i, _len, _results;
-
-    _results = [];
-    for (_i = 0, _len = adapters.length; _i < _len; _i++) {
-      adapterName = adapters[_i];
-      _results.push(describe("" + adapterName + " adapter", function() {
+    var adapterName, i, len, results;
+    results = [];
+    for (i = 0, len = adapters.length; i < len; i++) {
+      adapterName = adapters[i];
+      results.push(describe(adapterName + " adapter", function() {
         var adapter;
-
         it("should add itself to Opentip.adapters." + adapterName, function() {
           return expect(Opentip.adapters[adapterName]).to.be.ok();
         });
@@ -1914,7 +1832,6 @@
         describe("clone()", function() {
           return it("should create a shallow copy", function() {
             var obj, obj2;
-
             obj = {
               a: 1,
               b: 2,
@@ -1935,7 +1852,6 @@
         describe("extend()", function() {
           return it("should copy all attributes from sources to target and return the extended object as well", function() {
             var returned, source1, source2, target;
-
             target = {
               a: 1,
               b: 2,
@@ -1961,7 +1877,6 @@
           describe("tagName()", function() {
             return it("should return the tagName of passed element", function() {
               var element;
-
               element = document.createElement("div");
               return expect(adapter.tagName(element)).to.equal("DIV");
             });
@@ -1969,7 +1884,6 @@
           describe("wrap()", function() {
             return it("should also handle css selector strings", function() {
               var element, unwrapped, wrapped;
-
               element = document.createElement("div");
               element.id = "wrap-test";
               document.body.appendChild(element);
@@ -1982,7 +1896,6 @@
           describe("unwrap()", function() {
             return it("should properly return the unwrapped element", function() {
               var element, unwrapped, unwrapped2, wrapped;
-
               element = document.createElement("div");
               wrapped = adapter.wrap(element);
               unwrapped = adapter.unwrap(element);
@@ -1993,14 +1906,12 @@
           describe("attr()", function() {
             it("should return the attribute of passed element", function() {
               var element;
-
               element = document.createElement("a");
               element.setAttribute("href", "http://link");
               return expect(adapter.attr(adapter.wrap(element), "href")).to.equal("http://link");
             });
             return it("should set the attribute of passed element", function() {
               var element;
-
               element = document.createElement("a");
               adapter.attr(element, "class", "test-class");
               adapter.attr(adapter.wrap(element), "href", "http://link");
@@ -2011,7 +1922,6 @@
           describe("data()", function() {
             it("should set and return arbitrary data for element", function() {
               var element, element2;
-
               element = document.createElement("div");
               element2 = document.createElement("div");
               adapter.data(element, "test", ["a", "b"]);
@@ -2022,7 +1932,6 @@
             });
             it("should set empty data element", function() {
               var element;
-
               element = document.createElement("a");
               adapter.data(element, "test", ["a", "b"]);
               expect(adapter.data(element, "test")).to.eql(["a", "b"]);
@@ -2031,7 +1940,6 @@
             });
             return it("should return existing data", function() {
               var element, nodeElement;
-
               nodeElement = $("<div data-ot=\"hello\" data-my-test=\"some string\"></div>");
               element = nodeElement[0];
               expect(adapter.data(element, "ot")).to.equal("hello");
@@ -2041,60 +1949,54 @@
           describe("addClass()", function() {
             return it("should properly add the class", function() {
               var element, val;
-
               element = document.createElement("div");
               adapter.addClass(element, "test");
               adapter.addClass(adapter.wrap(element), "test2");
               return expect((function() {
-                var _j, _len1, _ref, _results1;
-
-                _ref = element.classList;
-                _results1 = [];
-                for (_j = 0, _len1 = _ref.length; _j < _len1; _j++) {
-                  val = _ref[_j];
-                  _results1.push(val);
+                var j, len1, ref, results1;
+                ref = element.classList;
+                results1 = [];
+                for (j = 0, len1 = ref.length; j < len1; j++) {
+                  val = ref[j];
+                  results1.push(val);
                 }
-                return _results1;
+                return results1;
               })()).to.eql(["test", "test2"]);
             });
           });
           describe("removeClass()", function() {
             return it("should properly add the class", function() {
               var element, val;
-
               element = document.createElement("div");
               adapter.addClass(element, "test");
               adapter.addClass(adapter.wrap(element), "test2");
               adapter.removeClass(element, "test2");
               expect((function() {
-                var _j, _len1, _ref, _results1;
-
-                _ref = element.classList;
-                _results1 = [];
-                for (_j = 0, _len1 = _ref.length; _j < _len1; _j++) {
-                  val = _ref[_j];
-                  _results1.push(val);
+                var j, len1, ref, results1;
+                ref = element.classList;
+                results1 = [];
+                for (j = 0, len1 = ref.length; j < len1; j++) {
+                  val = ref[j];
+                  results1.push(val);
                 }
-                return _results1;
+                return results1;
               })()).to.eql(["test"]);
               adapter.removeClass(element, "test");
               return expect((function() {
-                var _j, _len1, _ref, _results1;
-
-                _ref = element.classList;
-                _results1 = [];
-                for (_j = 0, _len1 = _ref.length; _j < _len1; _j++) {
-                  val = _ref[_j];
-                  _results1.push(val);
+                var j, len1, ref, results1;
+                ref = element.classList;
+                results1 = [];
+                for (j = 0, len1 = ref.length; j < len1; j++) {
+                  val = ref[j];
+                  results1.push(val);
                 }
-                return _results1;
+                return results1;
               })()).to.eql([]);
             });
           });
           describe("css()", function() {
             return it("should properly set the style", function() {
               var element;
-
               element = document.createElement("div");
               adapter.css(element, {
                 color: "red"
@@ -2109,7 +2011,6 @@
           describe("dimensions()", function() {
             it("should return an object with the correct dimensions", function() {
               var dim, dim2, element;
-
               element = $("<div style=\"display:block; position: absolute; width: 100px; height: 200px;\"></div>")[0];
               $("body").append(element);
               dim = adapter.dimensions(element);
@@ -2123,7 +2024,6 @@
             });
             it("should return an object with the correct dimensions including border and padding", function() {
               var dim, element;
-
               element = $("<div style=\"display:block; position: absolute; width: 100px; height: 200px; padding: 20px; border: 2px solid black;\"></div>")[0];
               $("body").append(element);
               dim = adapter.dimensions(element);
@@ -2135,7 +2035,6 @@
             });
             return it("should return an object with the correct dimensions even if display none", function() {
               var dim, element;
-
               element = $("<div style=\"display:none; position: absolute; width: 100px; height: 200px;\"></div>")[0];
               $("body").append(element);
               dim = adapter.dimensions(element);
@@ -2149,7 +2048,6 @@
           describe("viewportDimensions()", function() {
             return it("should return the viewportDimensions", function() {
               var dims, origDimensions;
-
               origDimensions = {
                 width: document.documentElement.clientWidth,
                 height: document.documentElement.clientHeight
@@ -2163,7 +2061,6 @@
           describe("scrollOffset()", function() {
             return it("should return the correct scroll offset", function() {
               var origScrollOffset, scrollOffset;
-
               origScrollOffset = [window.pageXOffset || document.documentElement.scrollLeft || document.body.scrollLeft, window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop];
               scrollOffset = adapter.scrollOffset();
               expect(scrollOffset).to.eql(origScrollOffset);
@@ -2174,7 +2071,6 @@
           describe("find()", function() {
             it("should only return one element", function() {
               var aElement, element;
-
               element = $("<div><span id=\"a-span\" class=\"a\"></span><div id=\"b-span\" class=\"b\"></div></div>")[0];
               aElement = adapter.find(element, ".a");
               expect(aElement.length === void 0).to.be.ok();
@@ -2182,7 +2078,6 @@
             });
             it("should properly retrieve child elements", function() {
               var a, b, element;
-
               element = $("<div><span id=\"a-span\" class=\"a\"></span><div id=\"b-span\" class=\"b\"></div></div>")[0];
               a = adapter.unwrap(adapter.find(element, ".a"));
               b = adapter.unwrap(adapter.find(adapter.wrap(element), ".b"));
@@ -2191,7 +2086,6 @@
             });
             return it("should return null if no element", function() {
               var a, element;
-
               element = $("<div></div>")[0];
               a = adapter.unwrap(adapter.find(element, ".a"));
               return expect(a).to.not.be.ok();
@@ -2200,7 +2094,6 @@
           describe("findAll()", function() {
             it("should properly retrieve child elements", function() {
               var a, b, element;
-
               element = $("<div><span id=\"a-span\" class=\"a\"></span><span id=\"b-span\" class=\"b\"></span></div>")[0];
               a = adapter.findAll(element, "span");
               b = adapter.findAll(adapter.wrap(element), "span");
@@ -2209,7 +2102,6 @@
             });
             return it("should return empty array if no element", function() {
               var a, b, element;
-
               element = $("<div></div>")[0];
               a = adapter.findAll(element, "span");
               b = adapter.findAll(adapter.wrap(element), "span");
@@ -2220,7 +2112,6 @@
           describe("update()", function() {
             it("should escape html if wanted", function() {
               var element;
-
               element = document.createElement("div");
               adapter.update(element, "abc <div>test</div>", true);
               expect(element.firstChild.textContent).to.be("abc <div>test</div>");
@@ -2230,7 +2121,6 @@
             });
             it("should not escape html if wanted", function() {
               var element;
-
               element = document.createElement("div");
               adapter.update(element, "abc<div>test</div>", false);
               expect(element.childNodes.length).to.be(2);
@@ -2242,7 +2132,6 @@
             });
             it("should delete previous content in plain text", function() {
               var element;
-
               element = document.createElement("div");
               adapter.update(element, "abc", true);
               adapter.update(element, "abc", true);
@@ -2252,7 +2141,6 @@
             });
             return it("should delete previous content in HTML", function() {
               var element;
-
               element = document.createElement("div");
               adapter.update(element, "abc", false);
               adapter.update(element, "abc", false);
@@ -2264,7 +2152,6 @@
           describe("append()", function() {
             it("should properly append child to element", function() {
               var child, element;
-
               element = document.createElement("div");
               child = document.createElement("span");
               adapter.append(element, child);
@@ -2276,7 +2163,6 @@
             });
             return it("should properly append child to element when created with adapter", function() {
               var child, element;
-
               element = adapter.create("<div></div>");
               child = adapter.create("<span></span>");
               adapter.append(element, child);
@@ -2292,7 +2178,6 @@
           describe("remove()", function() {
             return it("should completely remove element", function() {
               var element;
-
               element = document.createElement("div");
               element.className = "testelement99";
               adapter.append(document.body, element);
@@ -2304,12 +2189,11 @@
           describe("offset()", function() {
             it("should only return left and top", function() {
               var element, key, offset;
-
               element = $("<div style=\"display:block; position: absolute; left: 100px; top: 200px;\"></div>")[0];
               $("body").append(element);
               offset = adapter.offset(element);
               for (key in offset) {
-                if (!__hasProp.call(offset, key)) continue;
+                if (!hasProp.call(offset, key)) continue;
                 if (key !== "left" && key !== "top") {
                   throw new Error("Other keys returned");
                 }
@@ -2318,7 +2202,6 @@
             });
             return it("should properly return the offset position", function() {
               var element, offset, offset2;
-
               element = $("<div style=\"display:block; position: absolute; left: 100px; top: 200px;\"></div>")[0];
               $("body").append(element);
               offset = adapter.offset(element);
@@ -2334,7 +2217,6 @@
           describe("observe()", function() {
             it("should attach an event listener", function(done) {
               var element;
-
               element = document.createElement("a");
               adapter.observe(element, "click", function() {
                 return done();
@@ -2346,7 +2228,6 @@
             });
             return it("should attach an event listener to wrapped", function(done) {
               var element;
-
               element = document.createElement("a");
               adapter.observe(adapter.wrap(element), "click", function() {
                 return done();
@@ -2357,7 +2238,6 @@
           describe("stopObserving()", function() {
             it("should remove event listener", function() {
               var element, listener;
-
               element = document.createElement("a");
               listener = sinon.stub();
               adapter.observe(element, "click", listener);
@@ -2370,14 +2250,12 @@
             });
             it("should allow to remove event listener on window", function() {
               var listener;
-
               listener = sinon.stub();
               adapter.observe(window, "resize", listener);
               return adapter.stopObserving(window, "resize", listener);
             });
             return it("should remove event listener from wrapped", function() {
               var element, listener;
-
               element = document.createElement("a");
               listener = sinon.stub();
               adapter.observe(element, "click", listener);
@@ -2391,7 +2269,6 @@
           });
           return describe("ajax()", function() {
             var server;
-
             server = null;
             before(function() {
               server = sinon.fakeServer.create();
@@ -2408,19 +2285,17 @@
               return server.restore();
             });
             it("should throw an exception if no url provided", function() {
-              var e;
-
+              var e, error1;
               try {
                 adapter.ajax({});
                 return expect(true).to.be(false);
-              } catch (_error) {
-                e = _error;
+              } catch (error1) {
+                e = error1;
                 return expect(e.message).to.be("No url provided");
               }
             });
             it("should properly download the content with get", function(done) {
               var success;
-
               success = sinon.stub();
               return adapter.ajax({
                 url: "/ajax-test",
@@ -2440,7 +2315,6 @@
             });
             it("should properly download the content with post", function(done) {
               var success;
-
               success = sinon.stub();
               return adapter.ajax({
                 url: "/ajax-test",
@@ -2460,7 +2334,6 @@
             });
             return it("should properly call onError if error", function(done) {
               var errorStub;
-
               errorStub = sinon.stub();
               return adapter.ajax({
                 url: "/ajax-test404",
@@ -2482,7 +2355,7 @@
         });
       }));
     }
-    return _results;
+    return results;
   });
 
 }).call(this);
@@ -2491,13 +2364,11 @@
   if (Opentip.adapters.component == null) {
     describe("Native adapter", function() {
       var adapter;
-
       adapter = Opentip.adapter;
       return describe("DOM", function() {
         describe("create()", function() {
           it("should properly create DOM elements from string", function() {
             var elements;
-
             elements = adapter.create("<div class=\"test\"><span>HI</span></div>");
             expect(elements).to.be.an("object");
             expect(elements.length).to.equal(1);
@@ -2505,7 +2376,6 @@
           });
           return it("the created elements should be wrapped", function() {
             var elements, wrapped;
-
             elements = adapter.create("<div class=\"test\"><span>HI</span></div>");
             wrapped = adapter.wrap(elements);
             return expect(elements).to.equal(wrapped);
@@ -2514,14 +2384,12 @@
         return describe("wrap()", function() {
           it("should wrap the element in an array", function() {
             var element, wrapped;
-
             element = document.createElement("div");
             wrapped = adapter.wrap(element);
             return expect(element).to.equal(wrapped[0]);
           });
           return it("should properly wrap nodelists", function() {
             var wrapped;
-
             wrapped = adapter.wrap(document.body.childNodes);
             return expect(wrapped).to.not.be.a(NodeList);
           });
@@ -2539,13 +2407,11 @@
     $ = jQuery;
     describe("Ender adapter", function() {
       var adapter;
-
       adapter = Opentip.adapter;
       return describe("DOM", function() {
         describe("create()", function() {
           return it("should properly create DOM elements from string", function() {
             var elements;
-
             elements = adapter.create("<div class=\"test\"><span>HI</span></div>");
             expect(elements).to.be.an("object");
             expect(elements.length).to.equal(1);
@@ -2555,7 +2421,6 @@
         describe("wrap()", function() {
           return it("should return a bonzo element", function() {
             var element, wrapped;
-
             element = document.createElement("div");
             wrapped = adapter.wrap(element);
             expect(element).to.not.equal(wrapped);
@@ -2565,7 +2430,6 @@
         describe("tagName()", function() {
           return it("should return the tagName of passed ender element", function() {
             var element;
-
             element = $("div")[0];
             return expect(adapter.tagName(element)).to.equal("DIV");
           });
@@ -2573,7 +2437,6 @@
         describe("attr()", function() {
           return it("should return the attribute of passed ender element", function() {
             var element;
-
             element = $("<a href=\"http://link\"></a>")[0];
             return expect(adapter.attr(element, "href")).to.equal("http://link");
           });
@@ -2581,7 +2444,6 @@
         return describe("observe()", function() {
           return it("should observe given event on ender element", function(done) {
             var element;
-
             element = $("<a>link</a>")[0];
             adapter.observe(element, "click", function() {
               return done();
